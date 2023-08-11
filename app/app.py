@@ -17,9 +17,9 @@ def add_picture(file_paths, slide_layout, top=0, left=0, font_size=14):
 def add_pictures(
     left_file_paths,
     right_file_paths,
-    picture_top,
-    picture_width,
-    slide_layout,
+    picture_top=0,
+    picture_width=0,
+    slide_layout=1,
     font_size=14,
 ):
     ppt = PowerPoint()
@@ -64,16 +64,30 @@ def add_pictures(
         )
 
 
-def add_all_slides(count):
+def add_picture_to_placeholder(*file_paths, slide_layout):
+    ppt = PowerPoint()
+    ppt.setup_active_presentation()
+    for i in range(len(file_paths[0])):
+        ppt.add_slide(slide_layout=slide_layout)
+        for j in range(len(file_paths)):
+            ppt.add_picture(file_path=file_paths[j][i])
+
+
+def add_all_slides(count, placeholder_number=False):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
     for i in range(1, count):
         ppt.add_slide(i)
+        if placeholder_number:
+            for j in range(1, ppt.placeholder_count() + 1):
+                try:
+                    ppt.add_text_to_placeholder(text=j, placeholder_number=j)
+                except:
+                    pass
 
 
 def delete_all_slides():
     ppt = PowerPoint()
     ppt.setup_active_presentation()
-    print(ppt.slide_count())
     for i in range(ppt.slide_count(), 0, -1):
         ppt.delete_slide(i)

@@ -60,3 +60,6 @@ class PowerPoint:
 
     def slide_count(self):
         return self.active_presentation.Slides.Count
+
+    def placeholder_count(self):
+        return self.active_presentation.Slides(self.slide_count()).Shapes.Count
