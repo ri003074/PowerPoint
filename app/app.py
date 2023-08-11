@@ -1,5 +1,9 @@
 import os
+
+import pywintypes
+
 from lib.powerpoint import PowerPoint
+from lib.powerpoint import get_file_name
 
 
 def add_picture(file_paths, slide_layout, top=0, left=0, font_size=14):
@@ -32,7 +36,7 @@ def add_pictures(
         left_file_paths, right_file_paths
     ):
         ppt.add_slide(slide_layout=slide_layout)
-        file_name = os.path.splitext(os.path.basename(left_file_path))[0]
+        file_name = get_file_name(left_file_path)
         ppt.add_textbox(
             text=file_name,
             top=picture_top,
@@ -47,7 +51,7 @@ def add_pictures(
             left=left_picture_left,
             width=picture_width,
         )
-        file_name = os.path.splitext(os.path.basename(right_file_path))[0]
+        file_name = get_file_name(right_file_path)
         ppt.add_textbox(
             text=file_name,
             top=picture_top,
@@ -64,13 +68,27 @@ def add_pictures(
         )
 
 
-def add_picture_to_placeholder(*file_paths, slide_layout):
+def add_picture_to_placeholder(
+    *file_paths, slide_layout, title_placeholder_numbers=None
+):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
     for i in range(len(file_paths[0])):
         ppt.add_slide(slide_layout=slide_layout)
         for j in range(len(file_paths)):
+            if title_placeholder_numbers is not None:
+                ppt.add_text_to_placeholder(
+                    text=get_file_name(file_path=file_paths[j][i]),
+                    placeholder_number=title_placeholder_numbers[j],
+                )
             ppt.add_picture(file_path=file_paths[j][i])
+
+
+def add_table(data, cell_width=None):
+    ppt = PowerPoint()
+    ppt.setup_active_presentation()
+    ppt.add_slide(slide_layout=11)
+    ppt.add_table(data, cell_width)
 
 
 def add_all_slides(count, placeholder_number=False):
@@ -82,7 +100,7 @@ def add_all_slides(count, placeholder_number=False):
             for j in range(1, ppt.placeholder_count() + 1):
                 try:
                     ppt.add_text_to_placeholder(text=j, placeholder_number=j)
-                except:
+                except pywintypes.com_error:
                     pass
 
 

@@ -1,4 +1,9 @@
 import win32com.client
+import os
+
+
+def get_file_name(file_path):
+    return os.path.splitext(os.path.basename(file_path))[0]
 
 
 class PowerPoint:
@@ -57,6 +62,27 @@ class PowerPoint:
         )
         textframe.TextRange.Text = text
         textframe.TextRange.Font.Size = font_size
+
+    def add_table(self, data, cell_width=None):
+        row = len(data)
+        column = len(data[0])
+        table = (
+            self.active_presentation.Slides(self.slide_count())
+            .Shapes.AddTable(row, column)
+            .Table
+        )
+
+        for i in range(row):
+            for j in range(column):
+                text_range = table.Cell(i + 1, j + 1).Shape.TextFrame.TextRange
+                text_range.Text = data[i][j]
+                text_range.ParagraphFormat.Alignment = 2
+                if cell_width is not None:
+                    table.Columns(j + 1).Width = cell_width[j]
+
+        shape = self.active_presentation.Slides(self.slide_count()).Shapes(2)
+        shape.Left = self.slide_width / 2 - shape.width / 2
+        shape.Top = self.slide_height / 3
 
     def slide_count(self):
         return self.active_presentation.Slides.Count
