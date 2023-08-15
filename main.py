@@ -1,14 +1,14 @@
-from audioop import add
-
 from app.app import add_picture
 from app.app import add_all_slides
 from app.app import add_pictures
 from app.app import add_picture_to_placeholder
 from app.app import delete_all_slides
 from app.app import add_table
+from app.ss_2_ppt import ss_2_ppt
 import os
 
-if __name__ == "__main__":
+
+def main1():
     files1 = [
         os.getcwd() + "/data/a.png",
         os.getcwd() + "/data/a.png",
@@ -49,3 +49,7 @@ if __name__ == "__main__":
     add_picture_to_placeholder(files1, files2, files3, slide_layout=24)
 
     add_table(data=data1, cell_width=[100, 200])
+
+
+if __name__ == "__main__":
+    ss_2_ppt()
