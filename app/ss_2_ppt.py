@@ -6,7 +6,8 @@ import wx
 from PIL import ImageGrab
 import sys
 
-
+from app.app import add_all_slides
+from app.app import add_picture_to_placeholder
 from lib.get_window_info import (
     get_window_titles,
     get_window_rect_adj,
@@ -14,8 +15,6 @@ from lib.get_window_info import (
     set_foreground_window,
 )
 from lib.gui_lib_wx import GuiLibWx, resource_path
-from app.app import add_all_slides
-from app.app import add_picture_to_placeholder
 from lib.ss import get_screen_shot
 
 sys.path.append("'C:\\Users\\ri003\\Documents\\Programming\\GUI")
@@ -36,10 +35,10 @@ class MyGui(GuiLibWx):
         self.text_data = {"slide_title": "", "slide_layout_number": 1}
         self.window_titles = get_window_titles()
 
-        self.SetIcon(wx.Icon(resource_path("./image/python.png")))
+        self.SetIcon(wx.Icon(resource_path("python.png")))
         self.taskbar = wx.adv.TaskBarIcon()
         self.taskbar.SetIcon(
-            wx.Icon(resource_path("./image/python.png"), wx.BITMAP_TYPE_PNG),
+            wx.Icon(resource_path("python.png"), wx.BITMAP_TYPE_PNG),
             "",
         )
         self.init()
@@ -138,3 +137,7 @@ def ss_2_ppt():
         layout="static",
     )
     app.MainLoop()
+
+
+if __name__ == "__main__":
+    ss_2_ppt()
