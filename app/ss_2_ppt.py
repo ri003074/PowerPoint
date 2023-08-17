@@ -119,10 +119,16 @@ def get_screen_shot_and_insert_to_pptx(
         x_bottom_right=monitor_full_size.get(rect[2]),
         y_bottom_right=rect[3],
     )
+    if slide_title != "":
+        text = [slide_title]
+    else:
+        text = None
+
     add_picture_to_placeholder(
         [file_path],
         slide_layout=slide_layout_number,
         title_placeholder_numbers=[1],
+        titles=text,
     )
 
 

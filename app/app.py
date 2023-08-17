@@ -69,7 +69,7 @@ def add_pictures(
 
 
 def add_picture_to_placeholder(
-    *file_paths, slide_layout, title_placeholder_numbers=None
+    *file_paths, slide_layout, title_placeholder_numbers=None, titles=None
 ):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
@@ -77,8 +77,12 @@ def add_picture_to_placeholder(
         ppt.add_slide(slide_layout=slide_layout)
         for j in range(len(file_paths)):
             if title_placeholder_numbers is not None:
+                if titles is not None:
+                    text = titles[j]
+                else:
+                    text = get_file_name(file_path=file_paths[j][i])
                 ppt.add_text_to_placeholder(
-                    text=get_file_name(file_path=file_paths[j][i]),
+                    text=text,
                     placeholder_number=title_placeholder_numbers[j],
                 )
             ppt.add_picture(file_path=file_paths[j][i])
