@@ -4,6 +4,7 @@ from app.app import add_pictures
 from app.app import add_picture_to_placeholder
 from app.app import delete_all_slides
 from app.app import add_table
+from app.app import add_picture_to_active_slide
 from app.ss_2_ppt import ss_2_ppt
 import os
 
@@ -51,5 +52,10 @@ def main1():
     add_table(data=data1, cell_width=[100, 200])
 
 
+def main2():
+    add_picture_to_active_slide(os.getcwd() + "/data/a.png")
+
+
 if __name__ == "__main__":
     ss_2_ppt()
+    # main2()

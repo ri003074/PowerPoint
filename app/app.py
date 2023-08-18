@@ -11,7 +11,12 @@ def add_picture(file_paths, slide_layout, top=0, left=0, font_size=14):
     ppt.setup_active_presentation()
     for file_path in file_paths:
         ppt.add_slide(slide_layout=slide_layout)
-        ppt.add_picture(file_path=file_path, top=top, left=left)
+        ppt.add_picture(
+            file_path=file_path,
+            slide_number=ppt.slide_count(),
+            top=top,
+            left=left,
+        )
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         ppt.add_text_to_placeholder(
             text=file_name, placeholder_number=1, font_size=font_size
@@ -47,6 +52,7 @@ def add_pictures(
         )
         ppt.add_picture(
             file_path=left_file_path,
+            slide_number=ppt.slide_count(),
             top=picture_top,
             left=left_picture_left,
             width=picture_width,
@@ -62,6 +68,7 @@ def add_pictures(
         )
         ppt.add_picture(
             file_path=right_file_path,
+            slide_number=ppt.slide_count(),
             top=picture_top,
             left=right_picture_left,
             width=picture_width,
@@ -85,7 +92,9 @@ def add_picture_to_placeholder(
                     text=text,
                     placeholder_number=title_placeholder_numbers[j],
                 )
-            ppt.add_picture(file_path=file_paths[j][i])
+            ppt.add_picture(
+                file_path=file_paths[j][i], slide_number=ppt.slide_count()
+            )
 
 
 def add_table(data, cell_width=None):
@@ -113,3 +122,9 @@ def delete_all_slides():
     ppt.setup_active_presentation()
     for i in range(ppt.slide_count(), 0, -1):
         ppt.delete_slide(i)
+
+
+def add_picture_to_active_slide(file_path):
+    ppt = PowerPoint()
+    ppt.setup_active_presentation()
+    ppt.add_picture(file_path, slide_number=ppt.active_slide_number())

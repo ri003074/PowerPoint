@@ -29,9 +29,9 @@ class PowerPoint:
     def delete_slide(self, slide_number):
         self.active_presentation.Slides.Item(slide_number).delete()
 
-    def add_picture(self, file_path, left=0, top=0, width=0):
+    def add_picture(self, file_path, slide_number, left=0, top=0, width=0):
         picture = self.active_presentation.Slides(
-            self.slide_count()
+            slide_number
         ).Shapes.AddPicture(
             FileName=file_path,
             LinkToFile=-1,
@@ -89,3 +89,6 @@ class PowerPoint:
 
     def placeholder_count(self):
         return self.active_presentation.Slides(self.slide_count()).Shapes.Count
+
+    def active_slide_number(self):
+        return self.application.ActiveWindow.Selection.SlideRange.SlideIndex
