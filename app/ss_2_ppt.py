@@ -8,6 +8,7 @@ import sys
 
 from app.app import add_all_slides
 from app.app import add_picture_to_placeholder
+from app.app import add_picture_to_active_slide
 from lib.get_window_info import (
     get_window_titles,
     get_window_rect_adj,
@@ -67,9 +68,14 @@ class MyGui(GuiLibWx):
         self.create_text_control_layout(key="slide_title", hint="slide title")
 
         self.create_button_layout(
-            key="execute",
-            label="get screen shot",
-            func="self.execute",
+            key="ss_to_new_slide",
+            label="ss to new slide",
+            func="self.ss_to_new_slide",
+        )
+        self.create_button_layout(
+            key="ss_to_active_slide",
+            label="ss to active slide",
+            func="self.ss_to_active_slide",
         )
         self.create_button_layout(
             key="update_window",
@@ -91,22 +97,26 @@ class MyGui(GuiLibWx):
     def add_all_slides(self, event=None):
         add_all_slides(30)
 
-    def execute(self, event=None):
+    def ss_to_new_slide(self, event=None):
         app_name = self.window_titles[
             self.selected_radio_buttons.get("app_name")
         ]
         title = self.text_data.get("slide_title")
         slide_layout_number = int(self.text_data.get("slide_layout_number"))
-        get_screen_shot_and_insert_to_pptx(
+        ss_to_new_slide(
             app_title=app_name,
             slide_title=title,
             slide_layout_number=slide_layout_number,
         )
 
+    def ss_to_active_slide(self, event=None):
+        app_name = self.window_titles[
+            self.selected_radio_buttons.get("app_name")
+        ]
+        ss_to_active_slide(app_title=app_name)
 
-def get_screen_shot_and_insert_to_pptx(
-    app_title, slide_title="", slide_layout_number=1
-):
+
+def ss_to_new_slide(app_title, slide_title="", slide_layout_number=1):
     set_foreground_window(window_title=app_title)
     rect = get_window_rect_adj(window_title=app_title)
     monitor_full_size, x_left, x_right = get_monitor_full_size_info()
@@ -130,6 +140,22 @@ def get_screen_shot_and_insert_to_pptx(
         title_placeholder_numbers=[1],
         titles=text,
     )
+
+
+def ss_to_active_slide(app_title):
+    set_foreground_window(window_title=app_title)
+    rect = get_window_rect_adj(window_title=app_title)
+    monitor_full_size, x_left, x_right = get_monitor_full_size_info()
+    file_name = datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "_tmp.png"
+    file_path = os.getcwd() + "/" + file_name
+    get_screen_shot(
+        save_file_path=file_path,
+        x_top_left=monitor_full_size.get(rect[0]),
+        y_top_left=rect[1],
+        x_bottom_right=monitor_full_size.get(rect[2]),
+        y_bottom_right=rect[3],
+    )
+    add_picture_to_active_slide(file_path=file_path)
 
 
 def ss_2_ppt():
