@@ -76,7 +76,7 @@ def add_pictures(
 
 
 def add_picture_to_placeholder(
-    *file_paths, slide_layout, title_placeholder_numbers=None, titles=None
+    file_paths, slide_layout, title_placeholder_numbers=None, titles=None
 ):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
@@ -94,6 +94,119 @@ def add_picture_to_placeholder(
                 )
             ppt.add_picture(
                 file_path=file_paths[j][i], slide_number=ppt.slide_count()
+            )
+
+
+def add_pictures2(
+    file_paths,
+    slide_layout=11,
+    pic_width=300,
+    pic_top1=100,
+    pic_top2=300,
+    vertical=2,
+    horizontal=1,
+    font_size=14,
+):
+    ppt = PowerPoint()
+    ppt.setup_active_presentation()
+
+    left_list = []
+    top_list = []
+    pic_left1 = ppt.slide_width * 0.125 - pic_width * 0.5
+    pic_left2 = ppt.slide_width * 0.166 - pic_width * 0.5
+    pic_left3 = ppt.slide_width * 0.25 - pic_width * 0.5
+    pic_left4 = ppt.slide_width * 0.375 - pic_width * 0.5
+    pic_left5 = ppt.slide_width * 0.5 - pic_width * 0.5
+    pic_left6 = ppt.slide_width * 0.625 - pic_width * 0.5
+    pic_left7 = ppt.slide_width * 0.75 - pic_width * 0.5
+    pic_left8 = ppt.slide_width * 0.834 - pic_width * 0.5
+    pic_left9 = ppt.slide_width * 0.875 - pic_width * 0.5
+
+    if vertical == 1 and horizontal == 1:
+        left_list = [pic_left5]
+        top_list.append(pic_top1)
+
+    if vertical == 1 and horizontal == 2:
+        left_list = [pic_left3, pic_left7]
+        top_list = [pic_top1, pic_top1]
+
+    if vertical == 1 and horizontal == 3:
+        left_list = [pic_left2, pic_left5, pic_left8]
+        top_list = [pic_top1, pic_top1, pic_top1]
+
+    if vertical == 1 and horizontal == 4:
+        left_list = [
+            pic_left1,
+            pic_left4,
+            pic_left6,
+            pic_left9,
+        ]
+        top_list = [pic_top1, pic_top1, pic_top1, pic_top1]
+
+    if vertical == 2 and horizontal == 1:
+        left_list = [pic_left5, pic_left5]
+        top_list = [pic_top1, pic_top2]
+
+    if vertical == 2 and horizontal == 2:
+        left_list = [
+            pic_left3,
+            pic_left7,
+            pic_left3,
+            pic_left7,
+        ]
+        top_list = [pic_top1, pic_top1, pic_top2, pic_top2]
+
+    if vertical == 2 and horizontal == 3:
+        left_list = [
+            pic_left2,
+            pic_left5,
+            pic_left8,
+            pic_left2,
+            pic_left5,
+            pic_left8,
+        ]
+        top_list = [pic_top1, pic_top1, pic_top1, pic_top2, pic_top2, pic_top2]
+
+    if vertical == 2 and horizontal == 4:
+        left_list = [
+            pic_left1,
+            pic_left4,
+            pic_left6,
+            pic_left9,
+            pic_left1,
+            pic_left4,
+            pic_left6,
+            pic_left9,
+        ]
+        top_list = [
+            pic_top1,
+            pic_top1,
+            pic_top1,
+            pic_top1,
+            pic_top2,
+            pic_top2,
+            pic_top2,
+            pic_top2,
+        ]
+
+    for i in range(len(file_paths[0])):
+        ppt.add_slide(slide_layout=slide_layout)
+        for j in range(len(file_paths)):
+            file_name = get_file_name(file_paths[j][i])
+            ppt.add_textbox(
+                text=file_name,
+                top=top_list[j],
+                left=left_list[j],
+                width=pic_width,
+                height=10,
+                font_size=font_size,
+            )
+            ppt.add_picture(
+                file_path=file_paths[j][i],
+                slide_number=ppt.slide_count(),
+                top=top_list[j],
+                left=left_list[j],
+                width=pic_width,
             )
 
 
