@@ -22,6 +22,10 @@ class MyGui(GuiLibWx):
             "horizontal_number": 0,
             "picture_layout": 0,
             "picture_per_slide": 0,
+            "picture_placeholder1": 0,
+            "picture_placeholder2": 0,
+            "picture_placeholder3": 0,
+            "picture_placeholder4": 0,
         }
         self.text_data = {
             "slide_title": "",
@@ -47,7 +51,10 @@ class MyGui(GuiLibWx):
         )
 
         self.create_text_control_layout(
-            key="slide_layout_number", hint="Slide Layout (default 11)"
+            key="slide_layout_number",
+            hint="Slide Layout (default "
+            + str(self.text_data.get("slide_layout_number"))
+            + ")",
         )
 
         if self.selected_radio_buttons["picture_layout"] == 0:
@@ -61,6 +68,11 @@ class MyGui(GuiLibWx):
                 self.selected_radio_buttons["picture_per_slide"] + 1
             )
             for i in range(1, pic_per_slide + 1):
+                self.create_radio_button_layout(
+                    key="picture_placeholder" + str(i),
+                    buttons=["None", "1", "2", "3", "4", "5"],
+                    label="Picture" + str(i) + " Title Placeholder",
+                )
                 self.create_text_ctrl_and_browse_layout(
                     key="folder_browse" + str(i),
                     func="self.folder_browse",
@@ -77,15 +89,23 @@ class MyGui(GuiLibWx):
             )
         else:
             self.create_text_control_layout(
-                key="pic_top1", hint="Picture Top1 (default 200)"
+                key="pic_top1",
+                hint="Picture Top1 (default "
+                + str(self.text_data.get("pic_top1"))
+                + ")",
             )
             self.create_text_control_layout(
-                key="pic_top2", hint="Picture Top2 (default 400)"
+                key="pic_top2",
+                hint="Picture Top2 (default "
+                + str(self.text_data.get("pic_top2"))
+                + ")",
             )
             self.create_text_control_layout(
-                key="pic_width", hint="Picture Width (default 400)"
+                key="pic_width",
+                hint="Picture Width (default "
+                + str(self.text_data.get("pic_width"))
+                + ")",
             )
-
             self.create_radio_button_layout(
                 key="vertical_number", buttons=["1", "2"], label="vertical"
             )
@@ -115,12 +135,12 @@ class MyGui(GuiLibWx):
             )
         self.create_button_layout(
             key="add_slide",
-            label="Add All Slide",
+            label="Add All Slides",
             func="self.add_all_slides",
         )
         self.create_button_layout(
             key="delete_slide",
-            label="Delete All Slide",
+            label="Delete All Slides",
             func="self.delete_all_slides",
         )
 
@@ -156,6 +176,7 @@ class MyGui(GuiLibWx):
         pic_per_slide = self.selected_radio_buttons["picture_per_slide"] + 1
         slide_layout_number = int(self.text_data["slide_layout_number"])
         file_paths = []
+        title_placeholders = []
         for i in range(1, pic_per_slide + 1):
             file_paths.append(
                 glob.glob(
@@ -163,8 +184,17 @@ class MyGui(GuiLibWx):
                     recursive=True,
                 )
             )
+            title_placeholders.append(
+                self.selected_radio_buttons.get("picture_placeholder" + str(i))
+            )
+
+        if 0 in title_placeholders:
+            title_placeholders = None
+
         add_picture_to_placeholder(
-            file_paths=file_paths, slide_layout=slide_layout_number
+            file_paths=file_paths,
+            slide_layout=slide_layout_number,
+            title_placeholder_numbers=title_placeholders,
         )
 
     def add_all_slides(self, event=None):
