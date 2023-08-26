@@ -62,7 +62,12 @@ def main2():
 
 def main3():
     # add_all_slides(30, placeholder_number=True)
-    add_picture_to_placeholder([files1, files2], slide_layout=29)
+    add_picture_to_placeholder(
+        [files1],
+        title_placeholder_numbers=[1],
+        slide_layout=29,
+        file_name_to_title=False,
+    )
     # add_pictures2(
     #     [files1, files2],
     #     slide_layout=11,

@@ -24,6 +24,7 @@ class MyGui(GuiLibWx):
             "horizontal_number": 0,
             "picture_layout": 0,
             "picture_per_slide": 0,
+            "picture_title": 0,
             "picture_placeholder1": 0,
             "picture_placeholder2": 0,
             "picture_placeholder3": 0,
@@ -72,6 +73,11 @@ class MyGui(GuiLibWx):
                     buttons=["1", "2", "3", "4"],
                     label="Picture Per Slide",
                 )
+                self.create_radio_button_layout(
+                    key="picture_title",
+                    buttons=["File Name", "Dir Name"],
+                    label="Title",
+                )
                 pic_per_slide = (
                     self.selected_radio_buttons["picture_per_slide"] + 1
                 )
@@ -113,6 +119,11 @@ class MyGui(GuiLibWx):
                     hint="Picture Width (default "
                     + str(self.text_data.get("pic_width"))
                     + ")",
+                )
+                self.create_radio_button_layout(
+                    key="picture_title",
+                    buttons=["File Name", "Dir Name"],
+                    label="Title",
                 )
                 self.create_radio_button_layout(
                     key="vertical_number", buttons=["1", "2"], label="vertical"
@@ -179,6 +190,7 @@ class MyGui(GuiLibWx):
         pic_top2 = int(self.text_data["pic_top2"])
         pic_width = int(self.text_data["pic_width"])
         slide_layout_number = int(self.text_data["slide_layout_number"])
+        file_name_to_title = self.selected_radio_buttons["picture_title"]
         file_paths = []
         for i in range(1, hn * vn + 1):
             file_paths.append(
@@ -196,11 +208,13 @@ class MyGui(GuiLibWx):
             pic_top1=pic_top1,
             pic_top2=pic_top2,
             pic_width=pic_width,
+            file_name_to_title=True if file_name_to_title == 0 else False,
         )
 
     def add_picture_to_placeholder(self, event=None):
         pic_per_slide = self.selected_radio_buttons["picture_per_slide"] + 1
         slide_layout_number = int(self.text_data["slide_layout_number"])
+        file_name_to_title = self.selected_radio_buttons["picture_title"]
         file_paths = []
         title_placeholders = []
         for i in range(1, pic_per_slide + 1):
@@ -221,6 +235,7 @@ class MyGui(GuiLibWx):
             file_paths=file_paths,
             slide_layout=slide_layout_number,
             title_placeholder_numbers=title_placeholders,
+            file_name_to_title=True if file_name_to_title == 0 else False,
         )
 
     def replace_text(self, event=None):

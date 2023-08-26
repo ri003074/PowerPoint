@@ -6,6 +6,10 @@ def get_file_name(file_path):
     return os.path.splitext(os.path.basename(file_path))[0]
 
 
+def get_dir_name(file_path):
+    return os.path.dirname(file_path).split("\\")[-1].split("/")[-1]
+
+
 class PowerPoint:
     def __init__(self):
         self.application = None

@@ -5,6 +5,7 @@ import pywintypes
 
 from lib.powerpoint import PowerPoint
 from lib.powerpoint import get_file_name
+from lib.powerpoint import get_dir_name
 
 
 def add_picture(file_paths, slide_layout, top=0, left=0, font_size=14):
@@ -77,7 +78,11 @@ def add_pictures(
 
 
 def add_picture_to_placeholder(
-    file_paths, slide_layout, title_placeholder_numbers=None, titles=None
+    file_paths,
+    slide_layout,
+    title_placeholder_numbers=None,
+    titles=None,
+    file_name_to_title=True,
 ):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
@@ -86,11 +91,14 @@ def add_picture_to_placeholder(
         for j in range(len(file_paths)):
             if title_placeholder_numbers is not None:
                 if titles is not None:
-                    text = titles[j]
+                    title = titles[j]
                 else:
-                    text = get_file_name(file_path=file_paths[j][i])
+                    if file_name_to_title:
+                        title = get_file_name(file_path=file_paths[j][i])
+                    else:
+                        title = get_dir_name(file_path=file_paths[j][i])
                 ppt.add_text_to_placeholder(
-                    text=text,
+                    text=title,
                     placeholder_number=title_placeholder_numbers[j],
                 )
             ppt.add_picture(
@@ -107,6 +115,7 @@ def add_pictures2(
     vertical=2,
     horizontal=1,
     font_size=14,
+    file_name_to_title=True,
 ):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
@@ -193,7 +202,10 @@ def add_pictures2(
     for i in range(len(file_paths[0])):
         ppt.add_slide(slide_layout=slide_layout)
         for j in range(len(file_paths)):
-            file_name = get_file_name(file_paths[j][i])
+            if file_name_to_title:
+                file_name = get_file_name(file_paths[j][i])
+            else:
+                file_name = get_dir_name(file_paths[j][i])
             ppt.add_textbox(
                 text=file_name,
                 top=top_list[j],
