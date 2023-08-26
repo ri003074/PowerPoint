@@ -244,7 +244,7 @@ def add_picture_to_active_slide(file_path):
     ppt.add_picture(file_path, slide_number=ppt.active_slide_number())
 
 
-def replace_text(start_slide_number, end_slide_number, file):
+def replace_text(slide_number, file):
     datas = []
     with open(file, "r") as f:
         reader = csv.reader(f)
@@ -253,14 +253,13 @@ def replace_text(start_slide_number, end_slide_number, file):
 
     ppt = PowerPoint()
     ppt.setup_active_presentation()
-    for slide_number in range(start_slide_number, end_slide_number + 1):
-        for placeholder_number in range(
-            1, ppt.placeholder_count(slide_number) + 1
-        ):
-            for data in datas:
-                ppt.replace_placeholder_text(
-                    slide_number=slide_number,
-                    placeholder_number=placeholder_number,
-                    before=data[0],
-                    after=data[1],
-                )
+    for placeholder_number in range(
+        1, ppt.placeholder_count(slide_number) + 1
+    ):
+        for data in datas:
+            ppt.replace_placeholder_text(
+                slide_number=slide_number,
+                placeholder_number=placeholder_number,
+                before=data[0],
+                after=data[1],
+            )

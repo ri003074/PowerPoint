@@ -75,7 +75,7 @@ def main3():
 
 
 def main4():
-    replace_text(start_slide_number=2, end_slide_number=3, file="sample.txt")
+    replace_text(start_slide_number=2, file="sample.txt")
 
 
 if __name__ == "__main__":
