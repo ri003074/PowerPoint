@@ -5,6 +5,7 @@ from app.app import add_picture_to_placeholder
 from app.app import delete_all_slides
 from app.app import add_table
 from app.app import add_picture_to_active_slide
+from app.app import replace_text
 from app.app import add_pictures2
 from app.ss_2_ppt import ss_2_ppt
 import os
@@ -73,9 +74,14 @@ def main3():
     # )
 
 
+def main4():
+    replace_text(start_slide_number=2, end_slide_number=3, file="sample.txt")
+
+
 if __name__ == "__main__":
     # ss_2_ppt()
     # delete_all_slides()
     # main3()
     # main3()
     pic()
+    # main4()

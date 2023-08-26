@@ -1,4 +1,5 @@
 import os
+import csv
 
 import pywintypes
 
@@ -223,7 +224,7 @@ def add_all_slides(count, placeholder_number=False):
     for i in range(1, count):
         ppt.add_slide(i)
         if placeholder_number:
-            for j in range(1, ppt.placeholder_count() + 1):
+            for j in range(1, ppt.placeholder_count(ppt.slide_count()) + 1):
                 try:
                     ppt.add_text_to_placeholder(text=j, placeholder_number=j)
                 except pywintypes.com_error:
@@ -241,3 +242,25 @@ def add_picture_to_active_slide(file_path):
     ppt = PowerPoint()
     ppt.setup_active_presentation()
     ppt.add_picture(file_path, slide_number=ppt.active_slide_number())
+
+
+def replace_text(start_slide_number, end_slide_number, file):
+    datas = []
+    with open(file, "r") as f:
+        reader = csv.reader(f)
+        for line in reader:
+            datas.append(line)
+
+    ppt = PowerPoint()
+    ppt.setup_active_presentation()
+    for slide_number in range(start_slide_number, end_slide_number + 1):
+        for placeholder_number in range(
+            1, ppt.placeholder_count(slide_number) + 1
+        ):
+            for data in datas:
+                ppt.replace_placeholder_text(
+                    slide_number=slide_number,
+                    placeholder_number=placeholder_number,
+                    before=data[0],
+                    after=data[1],
+                )

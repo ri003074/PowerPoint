@@ -84,11 +84,22 @@ class PowerPoint:
         shape.Left = self.slide_width / 2 - shape.width / 2
         shape.Top = self.slide_height / 3
 
+    def replace_placeholder_text(
+        self, slide_number, placeholder_number, before, after
+    ):
+        textframe = (
+            self.active_presentation.Slides(slide_number)
+            .Shapes(placeholder_number)
+            .TextFrame
+        )
+        text = str(textframe.TextRange.Text)
+        textframe.TextRange.Text = text.replace(before, after)
+
     def slide_count(self):
         return self.active_presentation.Slides.Count
 
-    def placeholder_count(self):
-        return self.active_presentation.Slides(self.slide_count()).Shapes.Count
+    def placeholder_count(self, slide_number):
+        return self.active_presentation.Slides(slide_number).Shapes.Count
 
     def active_slide_number(self):
         return self.application.ActiveWindow.Selection.SlideRange.SlideIndex
