@@ -1,6 +1,5 @@
-from app.app import add_pictures
+from app.app import add_picture_to_custom_layout
 from app.app import add_all_slides
-from app.app import add_pictures
 from app.app import add_picture_to_placeholder
 from app.app import delete_all_slides
 from app.app import add_table
@@ -34,24 +33,32 @@ data1 = [["a", "b"], [1, 2], [4, 5]]
 
 def main1():
     delete_all_slides()
-    # add_all_slides(30, placeholder_number=True)
+    add_all_slides(17, placeholder_number=True)
 
     # to only 1 placeholder
-    add_pictures(file_paths=[files1], slide_layout=16, font_size=50)
-    add_pictures(
+    add_picture_to_custom_layout(
+        file_paths=[files1],
+        slide_layout=29,
+        font_size=50,
+        horizontal=1,
+        vertical=1,
+    )
+    add_picture_to_custom_layout(
         file_paths=[files1, files2],
-        pic_top1=200,
-        pic_top2=400,
+        picture_top1=200,
+        picture_top2=400,
         slide_layout=11,
         font_size=40,
     )
-    add_picture_to_placeholder([files1, files2], slide_layout=34)
     add_picture_to_placeholder(
-        [files1, files2], slide_layout=34, title_placeholder_numbers=[2, 4]
+        [files1], slide_layout=16, title_placeholder_numbers=[1]
     )
-    add_picture_to_placeholder([files1, files2, files3], slide_layout=24)
-
-    add_table(data=data1, cell_width=[100, 200])
+    # add_picture_to_placeholder(
+    #     [files1, files2], slide_layout=34, title_placeholder_numbers=[2, 4]
+    # )
+    # add_picture_to_placeholder([files1, files2, files3], slide_layout=24)
+    #
+    # add_table(data=data1, cell_width=[100, 200])
 
 
 def main2():
@@ -74,8 +81,8 @@ def main4():
 if __name__ == "__main__":
     delete_all_slides()
     main1()
-    main2()
-    main3()
-    main4()
+    # main2()
+    # main3()
+    # main4()
     # ss_2_ppt()
     # pic()

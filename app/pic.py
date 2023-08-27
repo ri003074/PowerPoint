@@ -3,7 +3,7 @@ from app.app import add_all_slides
 from app.app import delete_all_slides
 from app.app import add_picture_to_placeholder
 from app.app import replace_text
-from app.app import add_pictures
+from app.app import add_picture_to_custom_layout
 import wx
 import glob
 
@@ -200,13 +200,13 @@ class MyGui(GuiLibWx):
                 )
             )
 
-        add_pictures(
+        add_picture_to_custom_layout(
             file_paths,
             slide_layout=slide_layout_number,
             horizontal=hn,
             vertical=vn,
-            pic_top1=pic_top1,
-            pic_top2=pic_top2,
+            picture_top1=pic_top1,
+            picture_top2=pic_top2,
             pic_width=pic_width,
             file_name_to_title=True if file_name_to_title == 0 else False,
         )
