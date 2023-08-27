@@ -1,5 +1,6 @@
 import win32com.client
 import os
+import pywintypes
 
 
 def get_file_name(file_path):
@@ -96,8 +97,11 @@ class PowerPoint:
             .Shapes(placeholder_number)
             .TextFrame
         )
-        text = str(textframe.TextRange.Text)
-        textframe.TextRange.Text = text.replace(before, after)
+        try:
+            text = str(textframe.TextRange.Text)
+            textframe.TextRange.Text = text.replace(before, after)
+        except pywintypes.com_error:
+            pass
 
     def slide_count(self):
         return self.active_presentation.Slides.Count

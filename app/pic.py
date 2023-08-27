@@ -1,9 +1,9 @@
 from lib.gui_lib_wx import GuiLibWx, resource_path
 from app.app import add_all_slides
 from app.app import delete_all_slides
-from app.app import add_pictures2
 from app.app import add_picture_to_placeholder
 from app.app import replace_text
+from app.app import add_pictures
 import wx
 import glob
 
@@ -200,7 +200,7 @@ class MyGui(GuiLibWx):
                 )
             )
 
-        add_pictures2(
+        add_pictures(
             file_paths,
             slide_layout=slide_layout_number,
             horizontal=hn,
