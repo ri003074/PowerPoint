@@ -81,8 +81,8 @@ def main4():
 if __name__ == "__main__":
     delete_all_slides()
     main1()
-    # main2()
-    # main3()
-    # main4()
+    main2()
+    main3()
+    main4()
     # ss_2_ppt()
     # pic()

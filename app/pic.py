@@ -33,9 +33,9 @@ class MyGui(GuiLibWx):
         self.text_data = {
             "slide_title": "",
             "slide_layout_number": 11,
-            "pic_top1": 150,
-            "pic_top2": 350,
-            "pic_width": 300,
+            "picture_top1": 150,
+            "picture_top2": 350,
+            "picture_width": 300,
         }
 
         self.SetIcon(wx.Icon(resource_path("python.png")))
@@ -103,21 +103,21 @@ class MyGui(GuiLibWx):
                 )
             else:
                 self.create_text_control_layout(
-                    key="pic_top1",
+                    key="picture_top1",
                     hint="Picture Top1 (default "
-                    + str(self.text_data.get("pic_top1"))
+                    + str(self.text_data.get("picture_top1"))
                     + ")",
                 )
                 self.create_text_control_layout(
-                    key="pic_top2",
+                    key="picture_top2",
                     hint="Picture Top2 (default "
-                    + str(self.text_data.get("pic_top2"))
+                    + str(self.text_data.get("picture_top2"))
                     + ")",
                 )
                 self.create_text_control_layout(
-                    key="pic_width",
+                    key="picture_width",
                     hint="Picture Width (default "
-                    + str(self.text_data.get("pic_width"))
+                    + str(self.text_data.get("picture_width"))
                     + ")",
                 )
                 self.create_radio_button_layout(
@@ -186,9 +186,9 @@ class MyGui(GuiLibWx):
     def add_picture(self, event=None):
         vn = self.selected_radio_buttons["vertical_number"] + 1
         hn = self.selected_radio_buttons["horizontal_number"] + 1
-        pic_top1 = int(self.text_data["pic_top1"])
-        pic_top2 = int(self.text_data["pic_top2"])
-        pic_width = int(self.text_data["pic_width"])
+        picture_top1 = int(self.text_data["picture_top1"])
+        picture_top2 = int(self.text_data["picture_top2"])
+        picture_width = int(self.text_data["picture_width"])
         slide_layout_number = int(self.text_data["slide_layout_number"])
         file_name_to_title = self.selected_radio_buttons["picture_title"]
         file_paths = []
@@ -205,9 +205,9 @@ class MyGui(GuiLibWx):
             slide_layout=slide_layout_number,
             horizontal=hn,
             vertical=vn,
-            picture_top1=pic_top1,
-            picture_top2=pic_top2,
-            pic_width=pic_width,
+            picture_top1=picture_top1,
+            picture_top2=picture_top2,
+            picture_width=picture_width,
             file_name_to_title=True if file_name_to_title == 0 else False,
         )
 

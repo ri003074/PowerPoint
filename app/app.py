@@ -40,7 +40,7 @@ def add_picture_to_placeholder(
 def add_picture_to_custom_layout(
     file_paths,
     slide_layout=11,
-    pic_width=300,
+    picture_width=300,
     picture_top1=100,
     picture_top2=300,
     vertical=2,
@@ -53,15 +53,15 @@ def add_picture_to_custom_layout(
 
     left_list = []
     top_list = []
-    pic_left1 = ppt.slide_width * 0.125 - pic_width * 0.5
-    pic_left2 = ppt.slide_width * 0.166 - pic_width * 0.5
-    pic_left3 = ppt.slide_width * 0.25 - pic_width * 0.5
-    pic_left4 = ppt.slide_width * 0.375 - pic_width * 0.5
-    pic_left5 = ppt.slide_width * 0.5 - pic_width * 0.5
-    pic_left6 = ppt.slide_width * 0.625 - pic_width * 0.5
-    pic_left7 = ppt.slide_width * 0.75 - pic_width * 0.5
-    pic_left8 = ppt.slide_width * 0.834 - pic_width * 0.5
-    pic_left9 = ppt.slide_width * 0.875 - pic_width * 0.5
+    pic_left1 = ppt.slide_width * 0.125 - picture_width * 0.5
+    pic_left2 = ppt.slide_width * 0.166 - picture_width * 0.5
+    pic_left3 = ppt.slide_width * 0.25 - picture_width * 0.5
+    pic_left4 = ppt.slide_width * 0.375 - picture_width * 0.5
+    pic_left5 = ppt.slide_width * 0.5 - picture_width * 0.5
+    pic_left6 = ppt.slide_width * 0.625 - picture_width * 0.5
+    pic_left7 = ppt.slide_width * 0.75 - picture_width * 0.5
+    pic_left8 = ppt.slide_width * 0.834 - picture_width * 0.5
+    pic_left9 = ppt.slide_width * 0.875 - picture_width * 0.5
 
     if vertical == 1 and horizontal == 1:
         left_list = [pic_left5]
@@ -148,7 +148,7 @@ def add_picture_to_custom_layout(
                 text=file_name,
                 top=top_list[j],
                 left=left_list[j],
-                width=pic_width,
+                width=picture_width,
                 height=10,
                 font_size=font_size,
             )
@@ -157,7 +157,7 @@ def add_picture_to_custom_layout(
                 slide_number=ppt.slide_count(),
                 top=top_list[j],
                 left=left_list[j],
-                width=pic_width,
+                width=picture_width,
             )
 
 
