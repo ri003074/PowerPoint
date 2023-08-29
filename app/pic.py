@@ -270,3 +270,7 @@ def pic():
         layout="dynamic",
     )
     app.MainLoop()
+
+
+if __name__ == "__main__":
+    pic()

@@ -67,6 +67,8 @@ class PowerPoint:
         )
         textframe.TextRange.Text = text
         textframe.TextRange.Font.Size = font_size
+        textframe.TextRange.ParagraphFormat.Alignment = 2  # center
+        textframe.VerticalAnchor = 3  # middle, 4->bottom
 
     def add_table(self, data, cell_width=None):
         row = len(data)
